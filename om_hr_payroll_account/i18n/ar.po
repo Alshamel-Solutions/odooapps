@@ -25,6 +25,7 @@ msgstr ""
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:om_hr_payroll_account.hr_contract_form_inherit
 #: model_terms:ir.ui.view,arch_db:om_hr_payroll_account.hr_salary_rule_form_inherit
+#: model_terms:ir.ui.view,arch_db:om_hr_payroll_account.hr_version_form_inherit_journal
 msgid "Accounting"
 msgstr "المحاسبة"
 
@@ -34,8 +35,10 @@ msgid "Accounting Entry"
 msgstr "القيد المحاسبي"
 
 #. module: hr_payroll_account
+#. odoo-python
 #: code:addons/hr_payroll_account/models/om_hr_payroll_account.py:114
 #: code:addons/hr_payroll_account/models/om_hr_payroll_account.py:129
+#: code:addons/om_hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "Adjustment Entry"
 msgstr "تعديل القيد"
@@ -44,6 +47,8 @@ msgstr "تعديل القيد"
 #: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_contract__analytic_account_id
 #: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_payslip_line__analytic_account_id
 #: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_salary_rule__analytic_account_id
+#: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_employee__analytic_account_id
+#: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_version__analytic_account_id
 msgid "Analytic Account"
 msgstr "الحساب التحليلي"
 
@@ -95,7 +100,9 @@ msgid "Payslip Line"
 msgstr "بند المرتب"
 
 #. module: hr_payroll_account
+#. odoo-python
 #: code:addons/hr_payroll_account/models/om_hr_payroll_account.py:65
+#: code:addons/om_hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "Payslip of %s"
 msgstr "قسيمة مرتب لـ %s"
@@ -104,6 +111,8 @@ msgstr "قسيمة مرتب لـ %s"
 #: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_contract__journal_id
 #: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_payslip__journal_id
 #: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_payslip_run__journal_id
+#: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_employee__journal_id
+#: model:ir.model.fields,field_description:om_hr_payroll_account.field_hr_version__journal_id
 msgid "Salary Journal"
 msgstr "يومية الرواتب"
 
@@ -119,13 +128,28 @@ msgid "Tax"
 msgstr "الضريبة"
 
 #. module: hr_payroll_account
+#. odoo-python
 #: code:addons/hr_payroll_account/models/om_hr_payroll_account.py:112
+#: code:addons/om_hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "The Expense Journal \"%s\" has not properly configured the Credit Account!"
 msgstr "لم يتم تحديد حساب دائن في يومية الرواتب \"%s\"!"
 
 #. module: hr_payroll_account
+#. odoo-python
 #: code:addons/hr_payroll_account/models/om_hr_payroll_account.py:127
+#: code:addons/om_hr_payroll_account/models/hr_payroll_account.py:0
 #, python-format
 msgid "The Expense Journal \"%s\" has not properly configured the Debit Account!"
 msgstr "لم يتم تحديد حساب مدين في يومية الرواتب \"%s\"!"
+
+#. module: om_hr_payroll_account
+#. odoo-python
+#: code:addons/om_hr_payroll_account/models/hr_payroll_account.py:0
+msgid "Missing Debit Or Credit Account in Salary Rule"
+msgstr "حساب المدين أو الدائن مفقود في قاعدة الراتب"
+
+#. module: om_hr_payroll_account
+#: model_terms:ir.ui.view,arch_db:om_hr_payroll_account.view_hr_payslip_inherit_form
+msgid "Are you sure to delete the related accounting entry ?"
+msgstr "هل أنت متأكد من حذف قيد المحاسبة المرتبط؟"

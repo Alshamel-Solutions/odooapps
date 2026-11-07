@@ -1,0 +1,207 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* om_data_remove
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 00:00+0000\n"
+"PO-Revision-Date: 2026-11-08 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: om_data_remove
+#: model:ir.actions.act_window,name:om_data_remove.action_remove_data
+#: model:ir.ui.menu,name:om_data_remove.menu_remove_data
+msgid "Remove Data"
+msgstr "حذف البيانات"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Base Models</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">النماذج الأساسية</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Expense</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">المصروفات</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Inventory</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">المخزون</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">MRP</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">التصنيع</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">POS</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">نقطة البيع</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Project</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">المشاريع</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Purchase</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">المشتريات</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Quality</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">الجودة</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Remove All</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">حذف الكل</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Sale</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">المبيعات</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "<span class=\"col-3 col-lg-2 text-start\">Website And Blog</span>"
+msgstr "<span class=\"col-3 col-lg-2 text-start\">الموقع والمدونة</span>"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Accounting"
+msgstr "المحاسبة"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Clean and reset Account Chart"
+msgstr "تنظيف وإعادة ضبط دليل الحسابات"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Data Cleaning (Be careful to do that!)"
+msgstr "تنظيف البيانات (احذر عند القيام بذلك!)"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid ""
+"Data is deleted direcly from the database table using queries, once you done, it is not\n"
+"                            reversible !"
+msgstr ""
+"تُحذف البيانات مباشرة من جداول قاعدة البيانات باستعلامات، وبعد الانتهاء لا "
+"يمكن التراجع عنها!"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All BOM"
+msgstr "حذف جميع قوائم المواد"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Expense and Sheet"
+msgstr "حذف جميع المصروفات وكشوفها"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Manufacturing Order"
+msgstr "حذف جميع أوامر التصنيع"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Message"
+msgstr "حذف جميع الرسائل"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Move/Picking/Package/Lot"
+msgstr "حذف جميع الحركات/الاستلامات/الطرود/الدفعات"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All POS Order"
+msgstr "حذف جميع طلبات نقطة البيع"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Product"
+msgstr "حذف جميع المنتجات"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Product Attribute"
+msgstr "حذف جميع خصائص المنتجات"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Project/Task/Forecast"
+msgstr "حذف جميع المشاريع/المهام/التوقعات"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Purchase Order and Requisition"
+msgstr "حذف جميع أوامر الشراء وطلبات الشراء"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Quality"
+msgstr "حذف جميع بيانات الجودة"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Quality Setting"
+msgstr "حذف جميع إعدادات الجودة"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Sales Order"
+msgstr "حذف جميع أوامر البيع"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Transactions Except Master Data"
+msgstr "حذف جميع المعاملات باستثناء البيانات الرئيسية"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Voucher/Invoice/Bill"
+msgstr "حذف جميع السندات/الفواتير/فواتير الموردين"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Delete All Website/Blog"
+msgstr "حذف جميع بيانات الموقع/المدونة"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Please confirm to delete the data?"
+msgstr "يرجى تأكيد حذف البيانات؟"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Please confirm to delete the select data?"
+msgstr "يرجى تأكيد حذف البيانات المحددة؟"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Reset Category And Location Complete Name"
+msgstr "إعادة ضبط الاسم الكامل للفئات والمواقع"
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "Values set here are company-specific."
+msgstr "القيم المحددة هنا خاصة بالشركة فقط."
+
+#. module: om_data_remove
+#: model_terms:ir.ui.view,arch_db:om_data_remove.view_remove_data
+msgid "odooApp Customize Settings"
+msgstr "إعدادات تخصيص odooApp"
