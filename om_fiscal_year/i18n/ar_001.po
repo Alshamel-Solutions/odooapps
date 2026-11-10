@@ -18,27 +18,27 @@ msgstr ""
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.view_change_lock_date
 msgid "Account Period Closing"
-msgstr ""
+msgstr "إقفال الفترة المحاسبية"
 
 #. module: om_fiscal_year
 #: model:res.groups,name:om_fiscal_year.group_fiscal_year
 msgid "Allow to define fiscal years of more or less than a year"
-msgstr "تسمح بتحديد السنوات المالية التي تزيد أو تقل عن عام\n"
+msgstr "تسمح بتحديد السنوات المالية التي تزيد أو تقل عن عام"
 
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.view_change_lock_date
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #. module: om_fiscal_year
 #: model:ir.model,name:om_fiscal_year.model_change_lock_date
 msgid "Change Lock Date"
-msgstr "تغيير تاريخ القفل\n"
+msgstr "تغيير تاريخ القفل"
 
 #. module: om_fiscal_year
 #: model_terms:ir.actions.act_window,help:om_fiscal_year.actions_account_fiscal_year
 msgid "Click here to create a new fiscal year."
-msgstr "انقر هنا لإنشاء سنة مالية جديدة.\n"
+msgstr "انقر هنا لإنشاء سنة مالية جديدة."
 
 #. module: om_fiscal_year
 #: model:ir.model,name:om_fiscal_year.model_res_company
@@ -60,24 +60,24 @@ msgstr "ضبط الاعدادات"
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__create_uid
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "أنشأه"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__create_date
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__create_date
 msgid "Created on"
-msgstr ""
+msgstr "تاريخ الإنشاء"
 
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
 msgid "Define fiscal years of more or less than one year"
-msgstr "تحديد السنوات المالية التي تزيد أو تقل عن سنة واحدة\n"
+msgstr "تحديد السنوات المالية التي تزيد أو تقل عن سنة واحدة"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__display_name
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "الاسم المعروض"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__date_to
@@ -87,19 +87,19 @@ msgstr "تاريخ الانتهاء"
 #. module: om_fiscal_year
 #: model:ir.model.fields,help:om_fiscal_year.field_account_fiscal_year__date_to
 msgid "Ending Date, included in the fiscal year."
-msgstr ""
+msgstr "تاريخ الانتهاء، مشمول في السنة المالية."
 
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
 msgid "Fiscal Period Closing"
-msgstr "إغلاق الفترة المالية\n"
+msgstr "إغلاق الفترة المالية"
 
 #. module: om_fiscal_year
 #: model:ir.model,name:om_fiscal_year.model_account_fiscal_year
 #: model:ir.ui.menu,name:om_fiscal_year.menu_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
 msgid "Fiscal Year"
-msgstr "السنة المالية\n"
+msgstr "السنة المالية"
 
 #. module: om_fiscal_year
 #: model:ir.actions.act_window,name:om_fiscal_year.actions_account_fiscal_year
@@ -116,7 +116,7 @@ msgstr "آخر أيام السنة المالية"
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_res_config_settings__fiscalyear_last_month
 msgid "Fiscalyear Last Month"
-msgstr ""
+msgstr "آخر شهور السنة المالية"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__id
@@ -127,7 +127,7 @@ msgstr ""
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__period_lock_date
 msgid "Journal Entries Lock Date"
-msgstr "تاريخ قفل إدخالات دفتر اليومية\n"
+msgstr "تاريخ قفل إدخالات دفتر اليومية"
 
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
@@ -144,53 +144,53 @@ msgstr ""
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__write_uid
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "آخر تحديث بواسطة"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__write_date
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "تاريخ آخر تحديث"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_res_config_settings__fiscalyear_lock_date
 msgid "Lock Date"
-msgstr "تاريخ القفل\n"
+msgstr "تاريخ القفل"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__fiscalyear_lock_date
 msgid "Lock Date for All Users"
-msgstr "تاريخ القفل لجميع المستخدمين\n"
+msgstr "تاريخ القفل لجميع المستخدمين"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_res_config_settings__period_lock_date
 msgid "Lock Date for Non-Advisers"
-msgstr "تاريخ القفل لغير المستشارين\n"
+msgstr "تاريخ القفل لغير المستشارين"
 
 #. module: om_fiscal_year
 #: model:ir.ui.menu,name:om_fiscal_year.menu_action_change_lock_date
 msgid "Lock Dates"
-msgstr "تواريخ القفل\n"
+msgstr "تواريخ القفل"
 
 #. module: om_fiscal_year
 #: model:ir.actions.act_window,name:om_fiscal_year.action_view_change_lock_date
 msgid "Lock your Fiscal Period"
-msgstr "قفل الفترة المالية الخاصة بك\n"
+msgstr "قفل الفترة المالية الخاصة بك"
 
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
 msgid "Lock your fiscal period"
-msgstr "قفل الفترة المالية الخاصة بك\n"
+msgstr "قفل الفترة المالية الخاصة بك"
 
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.view_change_lock_date
 msgid "Management Closing"
-msgstr ""
+msgstr "الإقفال الإداري"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__name
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,help:om_fiscal_year.field_change_lock_date__tax_lock_date
@@ -198,6 +198,8 @@ msgid ""
 "No users can edit journal entries related to a tax prior and inclusive of "
 "this date."
 msgstr ""
+"لا يمكن لأي مستخدم تعديل قيود اليومية المتعلقة بضريبة قبل هذا التاريخ وحتى "
+"هذا التاريخ ضمناً."
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,help:om_fiscal_year.field_res_config_settings__fiscalyear_lock_date
@@ -212,6 +214,8 @@ msgid ""
 "No users, including Advisers, can edit accounts prior to and inclusive of "
 "this date. Use it for fiscal year locking."
 msgstr ""
+"لا يمكن لأي مستخدم، بما في ذلك المستشارون، تعديل الحسابات قبل هذا التاريخ "
+"وحتى هذا التاريخ ضمناً. استخدمه لقفل السنة المالية."
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,help:om_fiscal_year.field_res_config_settings__period_lock_date
@@ -229,13 +233,14 @@ msgstr ""
 #. module: om_fiscal_year
 #: model_terms:ir.ui.view,arch_db:om_fiscal_year.view_change_lock_date
 msgid "Save"
-msgstr ""
+msgstr "حفظ"
 
 #. module: om_fiscal_year
+#. odoo-python
 #: code:addons/om_fiscal_year/models/res_company.py:0
 #, python-format
 msgid "Show unposted entries"
-msgstr ""
+msgstr "إظهار القيود غير المرحّلة"
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_account_fiscal_year__date_from
@@ -245,42 +250,51 @@ msgstr "تاريخ البداية"
 #. module: om_fiscal_year
 #: model:ir.model.fields,help:om_fiscal_year.field_account_fiscal_year__date_from
 msgid "Start Date, included in the fiscal year."
-msgstr "تاريخ البدء مضمن في السنة المالية.\n"
+msgstr "تاريخ البدء مضمن في السنة المالية."
 
 #. module: om_fiscal_year
 #: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__tax_lock_date
 msgid "Tax Lock Date"
-msgstr "تاريخ القفل الضريبي\n"
+msgstr "تاريخ القفل الضريبي"
 
 #. module: om_fiscal_year
+#. odoo-python
 #: code:addons/om_fiscal_year/models/account_fiscal_year.py:0
 #, python-format
 msgid "The ending date must not be prior to the starting date."
-msgstr ""
+msgstr "يجب ألا يكون تاريخ الانتهاء قبل تاريخ البداية."
 
 #. module: om_fiscal_year
+#. odoo-python
 #: code:addons/om_fiscal_year/models/res_company.py:0
 #, python-format
 msgid ""
 "There are still unposted entries in the period you want to lock. You should "
 "either post or delete them."
 msgstr ""
+"لا تزال هناك قيود غير مرحّلة في الفترة التي تريد قفلها. يجب إما ترحيلها أو "
+"حذفها."
 
 #. module: om_fiscal_year
+#. odoo-python
 #: code:addons/om_fiscal_year/models/res_company.py:0
 #, python-format
 msgid ""
 "There are still unreconciled bank statement lines in the period you want to "
 "lock.You should either reconcile or delete them."
 msgstr ""
+"لا تزال هناك بنود كشف حساب بنكي غير مسواة في الفترة التي ترغب في إقفالها. "
+"عليك إما القيام بتسويتها أو حذفها."
 
 #. module: om_fiscal_year
+#. odoo-python
 #: code:addons/om_fiscal_year/wizard/change_lock_date.py:0
 #, python-format
 msgid "You Are Not Allowed To Perform This Operation"
-msgstr ""
+msgstr "غير مسموح لك بتنفيذ هذه العملية"
 
 #. module: om_fiscal_year
+#. odoo-python
 #: code:addons/om_fiscal_year/models/account_fiscal_year.py:0
 #, python-format
 msgid ""
@@ -288,4 +302,75 @@ msgid ""
 "start and/or end dates of your fiscal years."
 msgstr ""
 "لا يمكن أن يكون هناك تداخل بين سنتين ماليتين ، يرجى تصحيح تواريخ البدء و / "
-"أو الانتهاء للسنتين الماليتين.\n"
+"أو الانتهاء للسنتين الماليتين."
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__hard_lock_date
+#: model:ir.model.fields,field_description:om_fiscal_year.field_res_config_settings__hard_lock_date
+#: model:ir.model.fields,field_description:om_fiscal_year.field_res_config_settings__purchase_lock_date
+#: model:ir.model.fields,field_description:om_fiscal_year.field_res_config_settings__sale_lock_date
+#: model:ir.model.fields,field_description:om_fiscal_year.field_res_config_settings__tax_lock_date
+msgid "Hard Lock Date"
+msgstr "تاريخ الإقفال الثابت"
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,help:om_fiscal_year.field_change_lock_date__hard_lock_date
+msgid "Like the \"Global Lock Date\", but no exceptions are possible."
+msgstr "مثل «تاريخ القفل العام»، لكن لا يمكن استثناء أحد."
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,help:om_fiscal_year.field_change_lock_date__purchase_lock_date
+msgid ""
+"Prevents creation and modification of entries in purchase journals up to the"
+" defined date inclusive."
+msgstr "يمنع إنشاء وتعديل القيود في دفاتر المشتريات حتى التاريخ المحدد ضمناً."
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__purchase_lock_date
+msgid "Purchase Lock date"
+msgstr "تاريخ الإقفال للمشتريات"
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,help:om_fiscal_year.field_change_lock_date__sale_lock_date
+msgid ""
+"Prevents creation and modification of entries in sales journals up to the "
+"defined date inclusive."
+msgstr "يمنع إنشاء وتعديل القيود في دفاتر المبيعات حتى التاريخ المحدد ضمناً."
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,field_description:om_fiscal_year.field_change_lock_date__sale_lock_date
+#: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
+msgid "Sales Lock Date"
+msgstr "تاريخ الإقفال للمبيعات"
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,help:om_fiscal_year.field_res_config_settings__fiscalyear_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal's sequence."
+msgstr ""
+"أي قيد إلى ذلك التاريخ سيتم تأجيله إلى وقت لاحق، وفقًا لتسلسله في دفتر "
+"اليومية."
+
+#. module: om_fiscal_year
+#: model:ir.model.fields,help:om_fiscal_year.field_res_config_settings__hard_lock_date
+#: model:ir.model.fields,help:om_fiscal_year.field_res_config_settings__purchase_lock_date
+#: model:ir.model.fields,help:om_fiscal_year.field_res_config_settings__sale_lock_date
+#: model:ir.model.fields,help:om_fiscal_year.field_res_config_settings__tax_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal sequence. This lock date is irreversible and "
+"does not allow any exception."
+msgstr ""
+"سيتم تأجيل أي قيد حتى ذلك التاريخ إلى وقت لاحق، وفقًا لتسلسل دفتر اليومية "
+"الخاص به. لا يمكن التراجع عن تاريخ القفل هذا ولا يسمح بأي استثناء."
+
+#. module: om_fiscal_year
+#: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
+msgid "Purchase Lock Date"
+msgstr "تاريخ الإقفال للمشتريات"
+
+#. module: om_fiscal_year
+#: model_terms:ir.ui.view,arch_db:om_fiscal_year.res_config_settings_view_form
+msgid "Tax Return Lock Date"
+msgstr "تاريخ إقفال الإقرار الضريبي"

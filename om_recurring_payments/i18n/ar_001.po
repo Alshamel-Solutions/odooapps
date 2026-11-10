@@ -19,19 +19,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__amount
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__amount
 msgid "Amount"
-msgstr ""
+msgstr "مبلغ"
 
 #. module: om_recurring_payments
+#. odoo-python
 #: code:addons/om_recurring_payments/models/recurring_payment.py:0
 #, python-format
 msgid "Amount Must Be Non-Zero Positive Number"
-msgstr "يجب أن يكون المبلغ رقمًا موجبًا غير صفري\n"
+msgstr "يجب أن يكون المبلغ رقمًا موجبًا غير صفري"
 
 #. module: om_recurring_payments
+#. odoo-python
 #: code:addons/om_recurring_payments/models/recurring_payment.py:0
 #, python-format
 msgid "Cannot delete done records !"
-msgstr "لا يمكن حذف السجلات المنجزة!\n"
+msgstr "لا يمكن حذف السجلات المنجزة!"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__company_id
@@ -43,61 +45,61 @@ msgstr "الشركة"
 #. module: om_recurring_payments
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_template_form
 msgid "Confirm"
-msgstr ""
+msgstr "تأكيد"
 
 #. module: om_recurring_payments
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
 msgid "Create Payment"
-msgstr ""
+msgstr "إنشاء عملية الدفع"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__create_uid
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__create_uid
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "أنشأه"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__create_date
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__create_date
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__create_date
 msgid "Created on"
-msgstr ""
+msgstr "تاريخ الإنشاء"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__currency_id
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "العملة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__date
 msgid "Date"
-msgstr ""
+msgstr "التاريخ"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__recurring_period__days
 msgid "Days"
-msgstr ""
+msgstr "الأيام"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__description
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__description
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #. module: om_recurring_payments
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_template_form
 msgid "Description..."
-msgstr ""
+msgstr "الوصف..."
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__display_name
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__display_name
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "الاسم المعروض"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__state__done
@@ -105,14 +107,14 @@ msgstr ""
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__recurring_payment_line__state__done
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
 msgid "Done"
-msgstr ""
+msgstr "منتهي"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__state__draft
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__recurring_payment__state__draft
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__recurring_payment_line__state__draft
 msgid "Draft"
-msgstr ""
+msgstr "مسودة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__date_end
@@ -123,14 +125,14 @@ msgstr "تاريخ الانتهاء"
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__journal_state
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__journal_state
 msgid "Generate Journal As"
-msgstr "إنشاء مجلة باسم\n"
+msgstr "إنشاء مجلة باسم"
 
 #. module: om_recurring_payments
 #: model:ir.actions.server,name:om_recurring_payments.action_generate_recurring_payment_ir_actions_server
 #: model:ir.cron,cron_name:om_recurring_payments.action_generate_recurring_payment
 #: model:ir.cron,name:om_recurring_payments.action_generate_recurring_payment
 msgid "Generate Recurring Payments"
-msgstr "توليد المدفوعات المتكررة\n"
+msgstr "توليد المدفوعات المتكررة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__id
@@ -144,7 +146,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__journal_id
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__journal_id
 msgid "Journal"
-msgstr "مجلة\n"
+msgstr "مجلة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template____last_update
@@ -158,74 +160,75 @@ msgstr ""
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__write_uid
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "آخر تحديث بواسطة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__write_date
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__write_date
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "تاريخ آخر تحديث"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__recurring_period__months
 msgid "Months"
-msgstr "شهور\n"
+msgstr "شهور"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__name
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__name
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #. module: om_recurring_payments
+#. odoo-python
 #: code:addons/om_recurring_payments/models/recurring_payment.py:0
 #: code:addons/om_recurring_payments/models/recurring_payment.py:0
 #, python-format
 msgid "New"
-msgstr ""
+msgstr "جديد"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__partner_id
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__partner_id
 msgid "Partner"
-msgstr ""
+msgstr "الشريك"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__payment_id
 msgid "Payment"
-msgstr ""
+msgstr "الدفع"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__payment_type
 msgid "Payment Type"
-msgstr ""
+msgstr "نوع السداد"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__journal_state__posted
 msgid "Posted"
-msgstr ""
+msgstr "مُرحّل"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__recurring_payment__payment_type__inbound
 msgid "Receive Money"
-msgstr ""
+msgstr "استلام المال"
 
 #. module: om_recurring_payments
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
 msgid "Recurring Entries"
-msgstr ""
+msgstr "القيود المتكررة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__recurring_interval
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__recurring_interval
 msgid "Recurring Interval"
-msgstr "الفاصل الزمني المتكرر\n"
+msgstr "الفاصل الزمني المتكرر"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__line_ids
 msgid "Recurring Lines"
-msgstr ""
+msgstr "البنود المتكررة"
 
 #. module: om_recurring_payments
 #: model:ir.actions.act_window,name:om_recurring_payments.action_account_recurring_payment
@@ -234,29 +237,29 @@ msgstr ""
 #: model:ir.ui.menu,name:om_recurring_payments.menu_recurring_payments
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
 msgid "Recurring Payment"
-msgstr "دفع متكرر\n"
+msgstr "دفع متكرر"
 
 #. module: om_recurring_payments
 #: model:ir.model,name:om_recurring_payments.model_recurring_payment_line
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
 msgid "Recurring Payment Line"
-msgstr "خط الدفع المتكرر\n"
+msgstr "خط الدفع المتكرر"
 
 #. module: om_recurring_payments
 #: model:ir.model,name:om_recurring_payments.model_recurring_payment
 msgid "Recurring Payment("
-msgstr ")دفع متكرر\n"
+msgstr ")دفع متكرر"
 
 #. module: om_recurring_payments
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_account_recurring_payment_tree
 msgid "Recurring Payments"
-msgstr "دفع متكرر\n"
+msgstr "دفع متكرر"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_account_recurring_template__recurring_period
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__recurring_period
 msgid "Recurring Period"
-msgstr "فترة متكررة\n"
+msgstr "فترة متكررة"
 
 #. module: om_recurring_payments
 #: model:ir.actions.act_window,name:om_recurring_payments.action_account_recurring_template
@@ -266,18 +269,18 @@ msgstr "فترة متكررة\n"
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_account_recurring_template_tree
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_template_form
 msgid "Recurring Template"
-msgstr "نموذج متكرر\n"
+msgstr "نموذج متكرر"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__recurring_payment__payment_type__outbound
 msgid "Send Money"
-msgstr ""
+msgstr "إرسال المال"
 
 #. module: om_recurring_payments
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_payment_form
 #: model_terms:ir.ui.view,arch_db:om_recurring_payments.view_recurring_template_form
 msgid "Set To Draft"
-msgstr ""
+msgstr "إعادة إلى مسودة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__date_begin
@@ -289,25 +292,26 @@ msgstr "تاريخ البداية"
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment__state
 #: model:ir.model.fields,field_description:om_recurring_payments.field_recurring_payment_line__state
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__journal_state__draft
 msgid "Un Posted"
-msgstr ""
+msgstr "غير مرحّل"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__recurring_period__weeks
 msgid "Weeks"
-msgstr ""
+msgstr "أسابيع"
 
 #. module: om_recurring_payments
 #: model:ir.model.fields.selection,name:om_recurring_payments.selection__account_recurring_template__recurring_period__years
 msgid "Years"
-msgstr ""
+msgstr "سنوات"
 
 #. module: om_recurring_payments
+#. odoo-python
 #: code:addons/om_recurring_payments/models/recurring_payment.py:0
 #, python-format
 msgid "You cannot Set to Draft as one of the line is already in done state"
-msgstr "لا يمكنك التعيين إلى \"مسودة\" لأن أحد السطور في حالة \"تم\" بالفعل\n"
+msgstr "لا يمكنك التعيين إلى \"مسودة\" لأن أحد السطور في حالة \"تم\" بالفعل"
