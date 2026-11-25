@@ -200,3 +200,9 @@ class TestStatementImport(AccountTestInvoicingCommon):
             ('Shared One', 'DE89370400440532013000', -50),              # 5. two owners: none, whatever the name
         ])
         self.assertEqual([line.partner_id for line in lines], [supplier, supplier, Partner, contractor, Partner])
+
+    def test_legacy_action_import_bank_statement_alias(self):
+        self.assertEqual(
+            self.journal.action_import_bank_statement(),
+            self.journal.action_import_statement(),
+        )

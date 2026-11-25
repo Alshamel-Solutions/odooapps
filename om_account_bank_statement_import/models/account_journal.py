@@ -19,3 +19,7 @@ class AccountJournal(models.Model):
             'target': 'new',
             'context': {'default_journal_id': self.id},
         }
+
+    def action_import_bank_statement(self):
+        """ Backward-compatible alias for legacy 19.0.1.0.0 dashboard callers """
+        return self.action_import_statement()
