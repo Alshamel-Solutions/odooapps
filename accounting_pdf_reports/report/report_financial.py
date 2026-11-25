@@ -20,6 +20,8 @@ class ReportFinancial(models.AbstractModel):
         for account in accounts:
             res[account.id] = dict.fromkeys(mapping, 0.0)
         if accounts:
+            # the query below reads the journal items from the database
+            self.env['account.move.line'].flush_model()
             tables, where_clause, where_params = self.env['account.move.line']._query_get()
             tables = tables.replace('"', '') if tables else "account_move_line"
             wheres = [""]
@@ -100,7 +102,9 @@ class ReportFinancial(models.AbstractModel):
                 'name': report.name,
                 'balance': res[report.id]['balance'] * float(report.sign),
                 'type': 'report',
-                'level': bool(report.style_overwrite) and report.style_overwrite or report.level,
+                # style_overwrite defaults to the *string* '0' (automatic formatting),
+                # which is truthy: int() it so that we really fall back on report.level
+                'level': int(report.style_overwrite or 0) or report.level,
                 'account_type': report.type or False, #used to underline the financial report balances
             }
             if data['debit_credit']:
@@ -123,10 +127,11 @@ class ReportFinancial(models.AbstractModel):
                     flag = False
                     account = self.env['account.account'].browse(account_id)
                     vals = {
-                        'name': account.code + ' ' + account.name,
+                        'name': ' '.join(part for part in (account.code, account.name) if part),
                         'balance': value['balance'] * float(report.sign) or 0.0,
                         'type': 'account',
-                        'level': report.display_detail == 'detail_with_hierarchy' and 4,
+                        # must never be False: the template skips rows whose level is 0/False
+                        'level': 4 if report.display_detail == 'detail_with_hierarchy' else report.level + 1,
                         'account_type': account.account_type,
                     }
                     if data['debit_credit']:
@@ -147,7 +152,8 @@ class ReportFinancial(models.AbstractModel):
 
     @api.model
     def _get_report_values(self, docids, data=None):
-        if not data.get('form') or not self.env.context.get('active_model') or not self.env.context.get('active_id'):
+        if (not data.get('form') or not self.env.context.get('active_model')
+                or self.env.context.get('active_id') is None):
             raise UserError(_("Form content is missing, this report cannot be printed."))
 
         model = self.env.context.get('active_model')

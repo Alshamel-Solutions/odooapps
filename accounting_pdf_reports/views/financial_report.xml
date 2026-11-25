@@ -6,12 +6,22 @@
         <field name="model">account.financial.report</field>
         <field name="arch" type="xml">
             <form string="Account Report">
+                <header>
+                    <button name="action_create_menu" string="Add to Menu" type="object" class="btn-primary"
+                            groups="account.group_account_manager" invisible="parent_id or menu_id"
+                            help="Add a menu that opens this report."/>
+                    <button name="action_remove_menu" string="Remove Menu" type="object"
+                            groups="account.group_account_manager" invisible="not menu_id"
+                            confirm="Remove the menu of this report?"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="name"/>
                             <field name="parent_id"/>
                             <field name="sequence"/>
+                            <field name="menu_id" invisible="not menu_id"/>
+                            <field name="menu_action_id" invisible="1"/>
                         </group>
                         <group>
                             <field name="type"/>
@@ -47,7 +57,7 @@
         <field name="arch" type="xml">
             <list string="Account Report">
                 <field name="name"/>
-                <field name="parent_id" invisible="1"/>
+                <field name="parent_id" column_invisible="1"/>
                 <field name="type"/>
                 <field name="account_report_id"/>
             </list>
@@ -80,8 +90,18 @@
         <field name="context">{'search_default_filter_parent_id': True}</field>
         <field name="search_view_id" ref="view_account_financial_report_search"/>
         <field name="view_id" ref="view_account_financial_report_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a financial report
+            </p>
+            <p>
+                A financial report, like the balance sheet or the profit and loss, is a tree of lines summing accounts, account types or other lines.
+            </p>
+        </field>
     </record>
 
+    <!-- the folder the financial reports used to be in, empty now and so not shown: kept for the
+         modules that put their own menus in it -->
     <menuitem id="menu_finance_reports_settings"
               name="Financial Reports"
               sequence="9"
@@ -89,10 +109,11 @@
               parent="account.menu_finance_configuration"/>
 
     <menuitem id="menu_account_reports"
-              name="Account Reports"
+              name="Financial Reports"
               action="action_account_financial_report_tree"
+              sequence="70"
               groups="account.group_account_user,account.group_account_manager"
-              parent="menu_finance_reports_settings"/>
+              parent="account.account_account_menu"/>
 
 </odoo>
 

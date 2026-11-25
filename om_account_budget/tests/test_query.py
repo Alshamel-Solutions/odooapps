@@ -7,18 +7,24 @@ from odoo.tests import tagged
 class TestBudgetQuery(AccountTestInvoicingCommon):
     def test_native_aggregates_keep_budget_signs_and_date_bounds(self):
         account = self.company_data['default_account_revenue']
-        self.env['account.move'].create({
+        move = self.env['account.move'].create({
             'date': '2026-01-10',
             'journal_id': self.company_data['default_journal_misc'].id,
             'line_ids': [Command.create({'account_id': account.id, 'credit': 75.25}),
                          Command.create({'account_id': self.company_data['default_account_expense'].id, 'debit': 75.25})],
         })
+        move.action_post()
+        budget = self.env['crossovered.budget'].create({
+            'name': 'Budget', 'date_from': '2026-01-01', 'date_to': '2026-01-31',
+        })
         position = self.env['account.budget.post'].create({
             'name': 'Revenue', 'account_ids': [Command.set(account.ids)],
         })
-        line = self.env['crossovered.budget.lines'].new({
+        line = self.env['crossovered.budget.lines'].create({
+            'crossovered_budget_id': budget.id,
             'general_budget_id': position.id,
             'date_from': '2026-01-01', 'date_to': '2026-01-31',
+            'planned_amount': 100.0,
         })
         line._compute_practical_amount()
         self.assertAlmostEqual(line.practical_amount, 75.25)

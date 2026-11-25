@@ -10,20 +10,19 @@ msgstr ""
 "PO-Revision-Date: 2022-04-15 18:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: ar_001\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid " (copy)"
 msgstr "(نسخ)"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid " (grouped)"
@@ -53,15 +52,12 @@ msgstr "الحساب المستخدم في قيود الإهلاك لتخفيض 
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_category__account_depreciation_expense_id
-msgid ""
-"Account used in the periodical entries, to record a part of the asset as "
-"expense."
+msgid "Account used in the periodical entries, to record a part of the asset as expense."
 msgstr "الحساب المستخدم في القيود الدورية لتسجيل جزء من الأصل كمصروف."
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_category__account_asset_id
-msgid ""
-"Account used to record the purchase of the asset at its original price."
+msgid "Account used to record the purchase of the asset at its original price."
 msgstr "الحساب المستخدم لتسجيل شراء الأصل بسعره الأصلي."
 
 #. module: om_account_asset
@@ -89,7 +85,6 @@ msgid "Additional Options"
 msgstr "خيارات إضافية"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "Amount"
@@ -180,7 +175,6 @@ msgid "Asset category"
 msgstr "فئة الأصول"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset created"
@@ -192,7 +186,6 @@ msgid "Asset depreciation line"
 msgstr "بند إهلاك الأصل"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "Asset sold or disposed. Accounting entry awaiting for validation."
@@ -292,12 +285,8 @@ msgstr "فئة الأصل"
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_category__open_asset
-msgid ""
-"Check this if you want to automatically confirm the assets of this category "
-"when created by invoices."
-msgstr ""
-"حدد هذا الخيار إذا كنت تريد تأكيد أصول هذه الفئة تلقائيًا عند إنشائها بواسطة"
-" الفواتير."
+msgid "Check this if you want to automatically confirm the assets of this category when created by invoices."
+msgstr "حدد هذا الخيار إذا كنت تريد تأكيد أصول هذه الفئة تلقائيًا عند إنشائها بواسطة الفواتير."
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_category__group_entries
@@ -330,12 +319,8 @@ msgstr ""
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_asset_depreciation_confirmation_wizard__date
-msgid ""
-"Choose the period for which you want to automatically post the depreciation "
-"lines of running assets"
-msgstr ""
-"اختر الفترة التي تريد ترحيل بنود الإهلاك الخاصة بها للأصول قيد التشغيل "
-"تلقائيًا"
+msgid "Choose the period for which you want to automatically post the depreciation lines of running assets"
+msgstr "اختر الفترة التي تريد ترحيل بنود الإهلاك الخاصة بها للأصول قيد التشغيل تلقائيًا"
 
 #. module: om_account_asset
 #: model:ir.model.fields.selection,name:om_account_asset.selection__account_asset_asset__state__close
@@ -378,14 +363,12 @@ msgid "Confirm"
 msgstr "تأكيد"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
 #, python-format
 msgid "Created Asset Moves"
 msgstr "حركات الأصول المنشأة"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/wizard/asset_depreciation_confirmation_wizard.py:0
 #, python-format
 msgid "Created Revenue Moves"
@@ -415,7 +398,6 @@ msgid "Cumulative Depreciation"
 msgstr "الإهلاك المتراكم"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__currency_id
 #: model:ir.model.fields,field_description:om_account_asset.field_account_asset_depreciation_line__currency_id
@@ -553,14 +535,12 @@ msgid "Depreciation Name"
 msgstr "اسم الإهلاك"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Depreciation board modified"
 msgstr "تم تعديل جدول الإهلاك"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "Depreciation line posted."
@@ -577,21 +557,18 @@ msgid "Display Name"
 msgstr "الاسم المعروض"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "Disposal Move"
 msgstr "حركة التصرف في الأصل"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "Disposal Moves"
 msgstr "حركات التصرف في الأصول"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "Document closed."
@@ -644,9 +621,7 @@ msgstr "المتابعين (الشركاء)"
 msgid ""
 "From this report, you can have an overview on all depreciations. The\n"
 "            search bar can also be used to personalize your assets depreciation reporting."
-msgstr ""
-"من هذا التقرير ، يمكنك الحصول على نظرة عامة على جميع الإهلاك. يمكن أيضًا "
-"استخدام شريط البحث لتخصيص تقارير إهلاك الأصول الخاصة بك."
+msgstr "من هذا التقرير ، يمكنك الحصول على نظرة عامة على جميع الإهلاك. يمكن أيضًا استخدام شريط البحث لتخصيص تقارير إهلاك الأصول الخاصة بك."
 
 #. module: om_account_asset
 #: model:ir.ui.menu,name:om_account_asset.menu_asset_depreciation_confirmation_wizard
@@ -723,22 +698,13 @@ msgstr "إذا كان محددًا، فقد حدث خطأ في تسليم بعض
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__prorata
-msgid ""
-"Indicates that the first depreciation entry for this asset have to be done "
-"from the asset date (purchase date) instead of the first January / Start "
-"date of fiscal year"
-msgstr ""
-"يشير إلى أن قيد الإهلاك الأول لهذا الأصل يجب أن يتم اعتباراً من تاريخ الأصل "
-"(تاريخ الشراء) بدلاً من الأول من يناير / تاريخ بداية السنة المالية"
+msgid "Indicates that the first depreciation entry for this asset have to be done from the asset date (purchase date) instead of the first January / Start date of fiscal year"
+msgstr "يشير إلى أن قيد الإهلاك الأول لهذا الأصل يجب أن يتم اعتباراً من تاريخ الأصل (تاريخ الشراء) بدلاً من الأول من يناير / تاريخ بداية السنة المالية"
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_category__prorata
-msgid ""
-"Indicates that the first depreciation entry for this asset have to be done "
-"from the purchase date instead of the first of January"
-msgstr ""
-"يشير إلى أن قيد الإهلاك الأول لهذا الأصل يجب أن يتم اعتباراً من تاريخ الشراء"
-" بدلاً من الأول من يناير"
+msgid "Indicates that the first depreciation entry for this asset have to be done from the purchase date instead of the first of January"
+msgstr "يشير إلى أن قيد الإهلاك الأول لهذا الأصل يجب أن يتم اعتباراً من تاريخ الشراء بدلاً من الأول من يناير"
 
 #. module: om_account_asset
 #: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__installment_nbr
@@ -773,7 +739,6 @@ msgid "Journal"
 msgstr "دفتر اليومية"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_form
 #, python-format
@@ -895,13 +860,8 @@ msgstr "الملاحظات"
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__first_depreciation_manual_date
-msgid ""
-"Note that this date does not alter the computation of the first journal "
-"entry in case of prorata temporis assets. It simply changes its accounting "
-"date"
-msgstr ""
-"لاحظ أن هذا التاريخ لا يغير حساب إدخال دفتر اليومية الأول في حالة الأصول "
-"التناسبية الزمنية. إنه ببساطة يغير تاريخه المحاسبي"
+msgid "Note that this date does not alter the computation of the first journal entry in case of prorata temporis assets. It simply changes its accounting date"
+msgstr "لاحظ أن هذا التاريخ لا يغير حساب إدخال دفتر اليومية الأول في حالة الأصول التناسبية الزمنية. إنه ببساطة يغير تاريخه المحاسبي"
 
 #. module: om_account_asset
 #: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__message_needaction_counter
@@ -956,7 +916,6 @@ msgid "One Entry Every"
 msgstr "قيد واحد كل"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #: model:ir.model.fields,field_description:om_account_asset.field_account_asset_asset__partner_id
 #: model:ir.model.fields,field_description:om_account_asset.field_asset_asset_report__partner_id
@@ -1012,12 +971,9 @@ msgid "Prorata Temporis"
 msgstr "بالتناسب الزمني"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
-msgid ""
-"Prorata temporis can be applied only for the \"number of depreciations\" "
-"time method."
+msgid "Prorata temporis can be applied only for the \"number of depreciations\" time method."
 msgstr "لا يمكن تطبيق التناسب الزمني إلا على طريقة الزمن «عدد الإهلاكات»."
 
 #. module: om_account_asset
@@ -1096,7 +1052,7 @@ msgstr "القيمة التخريدية"
 #. module: om_account_asset
 #: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_category_search
 msgid "Search Asset Category"
-msgstr "فئة أصل البحث"
+msgstr "البحث في فئات الأصول"
 
 #. module: om_account_asset
 #: model_terms:ir.ui.view,arch_db:om_account_asset.view_account_asset_asset_form
@@ -1135,15 +1091,10 @@ msgid "The amount of time between two depreciations, in months"
 msgstr "المدة بين إهلاكين، بالأشهر"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/wizard/asset_modify.py:0
 #, python-format
-msgid ""
-"The number of depreciations must be greater than the number of posted or "
-"draft entries to allow for complete depreciation of the asset."
-msgstr ""
-"يجب أن يكون عدد الإهلاكات أكبر من عدد القيود المرحّلة أو المسودة لإتاحة "
-"الإهلاك الكامل للأصل."
+msgid "The number of depreciations must be greater than the number of posted or draft entries to allow for complete depreciation of the asset."
+msgstr "يجب أن يكون عدد الإهلاكات أكبر من عدد القيود المرحّلة أو المسودة لإتاحة الإهلاك الكامل للأصل."
 
 #. module: om_account_asset
 #: model:ir.model.fields,help:om_account_asset.field_account_asset_asset__method_number
@@ -1152,12 +1103,9 @@ msgid "The number of depreciations needed to depreciate your asset"
 msgstr "عدد الإهلاكات اللازمة لإهلاك أصلك"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_move.py:0
 #, python-format
-msgid ""
-"The number of depreciations or the period length of your asset category "
-"cannot be 0."
+msgid "The number of depreciations or the period length of your asset category cannot be 0."
 msgstr "لا يمكن أن يكون عدد الإهلاك أو مدة فئة الأصول 0."
 
 #. module: om_account_asset
@@ -1183,12 +1131,9 @@ msgstr ""
 "  * بحسب تاريخ الشراء: تعتمد تواريخ الإهلاك على تاريخ الشراء.\n"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
-msgid ""
-"This depreciation is already linked to a journal entry. Please post or "
-"delete it."
+msgid "This depreciation is already linked to a journal entry. Please post or delete it."
 msgstr "هذا الإهلاك مرتبط بالفعل بقيد يومية. يرجى ترحيله أو حذفه."
 
 #. module: om_account_asset
@@ -1249,7 +1194,6 @@ msgid "Vendor"
 msgstr ""
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_move.py:0
 #: code:addons/om_account_asset/models/account_move.py:0
 #, python-format
@@ -1286,35 +1230,30 @@ msgid "Year"
 msgstr "السنة"
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete a document that contains posted entries."
 msgstr "لا يمكنك حذف مستند يحتوي على مدخلات تم ترحيلها."
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete a document that is in %s state."
 msgstr "لا يمكنك حذف مستند في الحالة %s."
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete posted depreciation lines."
 msgstr "لا يمكنك حذف بنود الإهلاك المرحّلة."
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot delete posted installment lines."
 msgstr "لا يمكنك حذف بنود الأقساط المرحّلة."
 
 #. module: om_account_asset
-#. odoo-python
 #: code:addons/om_account_asset/models/account_move.py:0
 #, python-format
 msgid "You cannot reset to draft for an entry having a posted asset"

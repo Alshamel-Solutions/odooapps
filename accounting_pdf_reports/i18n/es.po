@@ -30,7 +30,7 @@ msgstr ": Balanza de comprobación"
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
 msgid "<span>Not due</span>"
-msgstr "<span>No Adeudado</span>"
+msgstr "<span>No vencido</span>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
@@ -111,8 +111,8 @@ msgstr "<strong>Ordenado Por:</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
-msgid "<strong>Start Date:</strong>"
-msgstr "<strong>Fecha de Inicio:</strong>"
+msgid "<strong>As of Date:</strong>"
+msgstr "<strong>Fecha de corte:</strong>"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_agedpartnerbalance
@@ -279,6 +279,11 @@ msgid "Analytic Accounts"
 msgstr "Cuentas analiticas"
 
 #. module: accounting_pdf_reports
+#: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__date_from
+msgid "As of Date"
+msgstr "Fecha de corte"
+
+#. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_assets0
 msgid "Assets"
 msgstr "Activos"
@@ -299,7 +304,7 @@ msgstr "Formateo automático"
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_partnerledger
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_trialbalance
 msgid "Balance"
-msgstr "Saldo Pendiente"
+msgstr "Saldo"
 
 #. module: accounting_pdf_reports
 #: model:account.financial.report,name:accounting_pdf_reports.account_financial_report_balancesheet0
@@ -474,12 +479,12 @@ msgstr "Nombre mostrado"
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__display_detail__detail_flat
 msgid "Display children flat"
-msgstr "Mostrar Cuentas"
+msgstr "Mostrar hijos sin jerarquía"
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__display_detail__detail_with_hierarchy
 msgid "Display children with hierarchy"
-msgstr "Mostrar Cuentas"
+msgstr "Mostrar hijos con jerarquía"
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__display_detail
@@ -526,7 +531,7 @@ msgstr "Asientos ordenadas por"
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_general_ledger
 msgid "Entry Label"
-msgstr "Nivel Básico"
+msgstr "Etiqueta del asiento"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
@@ -674,7 +679,7 @@ msgstr "Diario & Socio"
 #. module: accounting_pdf_reports
 #: model:ir.model,name:accounting_pdf_reports.model_report_accounting_pdf_reports_report_journal
 msgid "Journal Audit Report"
-msgstr "Reporte del diario de auditoría"
+msgstr "Informe de auditoría de diarios"
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_print_journal__sort_selection__move_name
@@ -892,7 +897,7 @@ msgstr "Duración del Período (días)"
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__sign__1
 msgid "Preserve balance sign"
-msgstr "Conservar firma de balance"
+msgstr "Conservar el signo del saldo"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.res_config_settings_view_form
@@ -993,7 +998,7 @@ msgstr "Reportes"
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__sign__-1
 msgid "Reverse balance sign"
-msgstr "Reversar firma de balance"
+msgstr "Invertir el signo del saldo"
 
 #. module: accounting_pdf_reports
 #: model_terms:ir.ui.view,arch_db:accounting_pdf_reports.report_tax
@@ -1008,7 +1013,7 @@ msgstr "Secuencia"
 #. module: accounting_pdf_reports
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_financial_report__sign
 msgid "Sign on Reports"
-msgstr "Firma en Informes"
+msgstr "Signo en informes"
 
 #. module: accounting_pdf_reports
 #: model:ir.model.fields.selection,name:accounting_pdf_reports.selection__account_financial_report__style_overwrite__6
@@ -1021,7 +1026,6 @@ msgid "Sort by"
 msgstr "Ordenar por"
 
 #. module: accounting_pdf_reports
-#: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_aged_trial_balance__date_from
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_balance_report__date_from
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_common_account_report__date_from
 #: model:ir.model.fields,field_description:accounting_pdf_reports.field_account_common_partner_report__date_from
@@ -1194,8 +1198,9 @@ msgid "You must set a period length greater than 0."
 msgstr "Debe establecer una duración del período superior a 0."
 
 #. module: accounting_pdf_reports
+#. odoo-python
 #: code:addons/accounting_pdf_reports/wizard/aged_partner.py:0
 #: code:addons/wizard/aged_partner.py:0
 #, python-format
-msgid "You must set a start date."
-msgstr "Debe establecer una fecha de inicio."
+msgid "You must set an as of date."
+msgstr "Debe establecer una fecha de corte."

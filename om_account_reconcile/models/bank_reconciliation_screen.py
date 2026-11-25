@@ -1,0 +1,401 @@
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+from odoo.tools.misc import format_date
+
+
+class AccountBankStatementLine(models.Model):
+    """ Data exchanged with the bank reconciliation screen. Every method returns plain JSON-able values. """
+    _inherit = 'account.bank.statement.line'
+
+    # -------------------------------------------------------------------------
+    # Formatting
+    # -------------------------------------------------------------------------
+
+    def _om_screen_transaction(self):
+        self.ensure_one()
+        trans_currency, _company_currency = self._om_currencies()
+        trans_amount = self.amount_currency if self.foreign_currency_id else self.amount
+        return {
+            'id': self.id,
+            'date': fields.Date.to_string(self.date),
+            'date_display': format_date(self.env, self.date),
+            'label': self.payment_ref or '',
+            'partner_id': self.partner_id.id,
+            'partner_name': self.partner_id.display_name or self.partner_name or '',
+            'amount': trans_amount,
+            'currency_id': trans_currency.id,
+            'journal_id': self.journal_id.id,
+            'journal_name': self.journal_id.display_name,
+            'is_reconciled': self.is_reconciled,
+            # what the counterparts still have to cover, as a journal item amount
+            'remaining': -self.amount_residual if not self.is_reconciled else 0.0,
+            # 19.0 marks the entries reviewed with a flag: the screen speaks of review states, as in 20.0
+            'review_state': 'todo' if self.move_id.state == 'posted' and not self.move_id.checked else 'reviewed',
+            'move_id': self.move_id.id,
+        }
+
+    def _om_screen_candidate(self, aml, score=None):
+        self.ensure_one()
+        trans_currency, _company_currency = self._om_currencies()
+        return {
+            'id': aml.id,
+            'move_id': aml.move_id.id,
+            'move_name': aml.move_id.name,
+            'date_display': format_date(self.env, aml.date),
+            'date_maturity_display': format_date(self.env, aml.date_maturity) if aml.date_maturity else '',
+            'partner_name': aml.partner_id.display_name or '',
+            'account_display': aml.account_id.display_name,
+            'label': ' - '.join(part for part in (aml.move_id.ref, aml.name)
+                                if part and part != aml.move_id.name) or '',
+            'residual_currency': aml.amount_residual_currency,
+            'currency_id': aml.currency_id.id,
+            'residual_transaction': trans_currency.round(self._om_to_transaction_amount(
+                aml.currency_id, aml.amount_residual_currency, aml.amount_residual)),
+            'score': score or 0,
+            'check_number': (aml.payment_id.check_number or '') if self._om_has_check_numbers() else '',
+        }
+
+    def _om_screen_entry_lines(self):
+        self.ensure_one()
+        _liquidity_lines, suspense_lines, other_lines = self._seek_for_lines()
+        lines = []
+        for line in other_lines + suspense_lines:
+            matched = line._all_reconciled_lines() - line
+            lines.append({
+                'id': line.id,
+                'account_display': line.account_id.display_name,
+                'partner_name': line.partner_id.display_name or '',
+                'label': line.name or '',
+                'amount_currency': line.amount_currency,
+                'currency_id': line.currency_id.id,
+                'balance': line.balance,
+                'is_suspense': line in suspense_lines,
+                'matched_move_names': matched.move_id.mapped('name'),
+            })
+        return lines
+
+    # -------------------------------------------------------------------------
+    # Screen API
+    # -------------------------------------------------------------------------
+
+    @api.model
+    def om_bank_rec_search_transactions(self, journal_id=None, search=None, state='to_reconcile', limit=80, offset=0):
+        self._om_check_access()
+        domain = [('company_id', 'in', self.env.companies.ids)]
+        if journal_id:
+            domain.append(('journal_id', '=', journal_id))
+        if state == 'to_reconcile':
+            domain.append(('is_reconciled', '=', False))
+        elif state == 'reconciled':
+            domain.append(('is_reconciled', '=', True))
+        elif state == 'to_review':
+            domain += [('move_id.state', '=', 'posted'), ('move_id.checked', '=', False)]
+        if search:
+            search = search.strip()
+            text_domain = ['|', '|', ('payment_ref', 'ilike', search), ('partner_id.name', 'ilike', search),
+                           ('partner_name', 'ilike', search)]
+            try:
+                number = float(search.replace(',', ''))
+                text_domain = ['|', '|', ('amount', '=', number), ('amount', '=', -number)] + text_domain
+            except ValueError:
+                pass
+            domain += text_domain
+        st_lines = self.search(domain, order='date desc, id desc', limit=limit, offset=offset)
+        return {
+            'transactions': [st_line._om_screen_transaction() for st_line in st_lines],
+            'count': self.search_count(domain),
+        }
+
+    def om_bank_rec_get_data(self):
+        """ Everything the screen shows for one transaction. """
+        self.ensure_one()
+        self._om_check_access()
+        data = {
+            'transaction': self._om_screen_transaction(),
+            'entry_lines': self._om_screen_entry_lines(),
+            'suggestion': {'matches': []},
+            'models': [],
+        }
+        if self.is_reconciled:
+            return data
+        suggestion = self._om_suggested_proposal()
+        amls = self.env['account.move.line'].browse([match['aml_id'] for match in suggestion.get('matches', [])])
+        data['suggestion'] = {
+            'matches': [{'aml_id': aml.id, 'amount': None, 'candidate': self._om_screen_candidate(aml)}
+                        for aml in amls],
+        }
+        data['models'] = self._om_screen_models()
+        return data
+
+    def _om_screen_models(self, partner=None):
+        """ Reconciliation models offered for the transaction, the applicable ones being highlighted.
+
+        :param partner: see `account.reconcile.model._om_is_applicable`
+        """
+        self.ensure_one()
+        models = self.env['account.reconcile.model'].search([
+            ('company_id', '=', self.company_id.id),
+            ('rule_type', '!=', 'matching_rule'),
+            ('mapped_partner_id', '=', False),
+        ])
+        return [
+            {'id': model.id, 'name': model.name, 'applicable': model._om_is_applicable(self, partner=partner)}
+            for model in models if not model.match_journal_ids or self.journal_id in model.match_journal_ids
+        ]
+
+    def om_bank_rec_models(self, partner_id=False):
+        """ Reconciliation models of the transaction for the partner chosen in the screen, not saved yet. """
+        self.ensure_one()
+        self._om_check_access()
+        if self.is_reconciled:
+            return []
+        return self._om_screen_models(partner=self.env['res.partner'].browse(partner_id or []))
+
+    def om_bank_rec_candidates(self, search=None, limit=40, offset=0):
+        self.ensure_one()
+        self._om_check_access()
+        if search:
+            amls = self._om_search_candidates(search=search, limit=limit, offset=offset)
+            return [self._om_screen_candidate(aml) for aml in amls]
+        scored = dict(self._om_scored_candidates(limit=limit))
+        amls = list(scored)
+        if len(amls) < limit:
+            amls += list(self._om_search_candidates(limit=limit - len(amls)).filtered(lambda aml: aml not in scored))
+        return [self._om_screen_candidate(aml, scored.get(aml)) for aml in amls]
+
+    def om_bank_rec_preview(self, proposal):
+        """ Journal items the proposal would create and what would be left, without writing anything. """
+        self.ensure_one()
+        self._om_check_access()
+        proposal = self._om_clean_proposal(proposal)
+        lines = self._om_prepare_proposal_lines(proposal)
+        remaining_trans, remaining_balance = self._om_remaining(lines)
+        trans_currency, company_currency = self._om_currencies()
+        preview_lines = []
+        # without counterparts typed in, the lines added by the engine are those of an early payment discount
+        engine_lines = not proposal['writeoffs']
+        for vals, aml in lines:
+            currency = self.env['res.currency'].browse(vals['currency_id'])
+            if aml:
+                kind = 'match'
+            elif engine_lines:
+                kind = 'discount'
+            else:
+                kind = 'tax' if vals.get('tax_repartition_line_id') else 'writeoff'
+            preview_lines.append({
+                'kind': kind,
+                'aml_id': aml.id,
+                'account_display': self.env['account.account'].browse(vals['account_id']).display_name,
+                'label': vals.get('name') or '',
+                'amount_currency': vals['amount_currency'],
+                'currency_id': currency.id,
+                'amount_transaction': trans_currency.round(
+                    self._om_to_transaction_amount(currency, vals['amount_currency'], vals['balance'])),
+            })
+        return {
+            'lines': preview_lines,
+            'remaining': remaining_trans,
+            'is_complete': trans_currency.is_zero(remaining_trans) and company_currency.is_zero(remaining_balance),
+        }
+
+    def om_bank_rec_validate(self, proposal):
+        self.ensure_one()
+        self._om_reconcile(self._om_clean_proposal(proposal))
+        return self.om_bank_rec_get_data()
+
+    def om_bank_rec_undo(self):
+        self.ensure_one()
+        self._om_undo()
+        return self.om_bank_rec_get_data()
+
+    def om_bank_rec_model_writeoffs(self, model_id, proposal):
+        """ Counterparts added by a reconciliation model on what the proposal leaves uncovered. """
+        self.ensure_one()
+        self._om_check_access()
+        model = self.env['account.reconcile.model'].browse(model_id)
+        if model.company_id != self.company_id:
+            raise UserError(_('This reconciliation model belongs to another company.'))
+        # the partner chosen in the screen, the one of the transaction when the proposal has none
+        partner = None
+        if 'partner_id' in (proposal or {}):
+            partner = self.env['res.partner'].browse(proposal['partner_id'] or [])
+        lines = self._om_prepare_proposal_lines(self._om_clean_proposal(proposal))
+        remaining_trans, _remaining_balance = self._om_remaining(lines)
+        return model._om_get_writeoffs(self, residual=remaining_trans, partner=partner)
+
+    @api.model
+    def om_bank_rec_auto_reconcile(self, st_line_ids):
+        st_lines = self.browse(st_line_ids).filtered(lambda st_line: not st_line.is_reconciled)
+        st_lines._om_check_access()
+        return len(st_lines._om_auto_reconcile())
+
+    def om_bank_rec_set_review(self, to_check):
+        self.ensure_one()
+        self._om_check_access()
+        self.move_id.checked = not to_check
+        return self.om_bank_rec_get_data()
+
+    def om_bank_rec_partner_account(self, partner_id):
+        """ The receivable account of the partner for money coming in, its payable account for money going out:
+        the transaction is kept open there, e.g. an advance to match with the invoice later. """
+        self.ensure_one()
+        self._om_check_access()
+        partner = self.env['res.partner'].browse(partner_id).with_company(self.company_id)
+        account = partner.property_account_receivable_id if self.amount > 0 else partner.property_account_payable_id
+        return {'id': account.id, 'display_name': account.display_name} if account else False
+
+    @api.model
+    def om_bank_rec_bulk_set_partner(self, st_line_ids, partner_id):
+        """ Set the partner of the transactions selected, those not reconciled yet. """
+        st_lines = self.browse(st_line_ids).filtered(lambda st_line: not st_line.is_reconciled)
+        st_lines._om_check_access()
+        st_lines.partner_id = partner_id or False
+        return len(st_lines)
+
+    @api.model
+    def om_bank_rec_bulk_book(self, st_line_ids, account_id):
+        """ Book what is left to reconcile on each transaction selected on the account, e.g. bank fees. """
+        st_lines = self.browse(st_line_ids).filtered(lambda st_line: not st_line.is_reconciled)
+        st_lines._om_check_access()
+        for st_line in st_lines:
+            remaining_trans, _remaining_balance = st_line._om_remaining([])
+            st_line._om_reconcile({'writeoffs': [{
+                'account_id': account_id,
+                'amount': remaining_trans,
+                'label': st_line.payment_ref,
+                'partner_id': st_line.partner_id.id,
+            }]})
+        return len(st_lines)
+
+    def om_bank_rec_create_document(self, filename, datas, partner_id=False):
+        """ A draft vendor bill (money going out) or customer invoice (money coming in) of what is left to reconcile,
+        with the document attached, to check, post and match with the transaction.
+
+        :return: the id of the draft
+        """
+        self.ensure_one()
+        self._om_check_access()
+        if self.is_reconciled:
+            raise UserError(_('The transaction %s is already reconciled.', self.display_name))
+        trans_currency, _company_currency = self._om_currencies()
+        remaining_trans, _remaining_balance = self._om_remaining([])
+        outgoing = self.amount < 0
+        journal = self.env['account.journal'].search([
+            *self.env['account.journal']._check_company_domain(self.company_id),
+            ('type', '=', 'purchase' if outgoing else 'sale'),
+        ], limit=1)
+        if not journal:
+            raise UserError(_('Create a purchase or a sales journal first.'))
+        move = self.env['account.move'].create({
+            'move_type': 'in_invoice' if outgoing else 'out_invoice',
+            'journal_id': journal.id,
+            'partner_id': partner_id or self.partner_id.id or False,
+            'invoice_date': self.date,
+            'currency_id': trans_currency.id,
+            'ref': self.payment_ref,
+            'invoice_line_ids': [fields.Command.create({
+                'name': self.payment_ref or filename,
+                'quantity': 1.0,
+                'price_unit': abs(remaining_trans),
+                'tax_ids': [],
+            })],
+        })
+        attachment = self.env['ir.attachment'].create({
+            'name': filename,
+            'datas': datas,
+            'res_model': 'account.move',
+            'res_id': move.id,
+        })
+        move.message_main_attachment_id = attachment
+        move.message_post(body=_('Created from the transaction %s of the bank reconciliation.', self.display_name),
+                          attachment_ids=attachment.ids)
+        return move.id
+
+    def _om_clean_proposal(self, proposal):
+        """ Keep only the values the engine expects from what the screen sends. """
+        proposal = proposal or {}
+        return {
+            'partner_id': proposal.get('partner_id') or False,
+            'matches': [
+                {'aml_id': int(match['aml_id']), 'amount': match.get('amount')}
+                for match in proposal.get('matches') or []
+            ],
+            'writeoffs': [
+                {
+                    'account_id': int(writeoff['account_id']),
+                    'amount': float(writeoff.get('amount') or 0.0),
+                    'label': writeoff.get('label') or '',
+                    'partner_id': writeoff.get('partner_id') or False,
+                    'tax_ids': [int(tax_id) for tax_id in writeoff.get('tax_ids') or []],
+                    'tax_included': bool(writeoff.get('tax_included')),
+                    'analytic_distribution': writeoff.get('analytic_distribution') or False,
+                    'reconcile_model_id': writeoff.get('reconcile_model_id') or False,
+                }
+                for writeoff in proposal.get('writeoffs') or [] if writeoff.get('account_id')
+            ],
+        }
+
+
+class AccountJournal(models.Model):
+    _inherit = 'account.journal'
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        journals = super().create(vals_list)
+        banks = journals.filtered(lambda journal: journal.type == 'bank' and journal.company_id.om_bank_fee_account_id)
+        if banks:
+            self.env['account.reconcile.model'].sudo()._om_sync_bank_fee_models(banks.company_id)
+        return journals
+
+    def om_action_open_bank_reconciliation(self, state='to_reconcile', st_line_id=False):
+        """ :param state: the transactions listed first: to_reconcile, to_review, reconciled or all """
+        self.ensure_one()
+        params = {'journal_id': self.id, 'filter': state}
+        if st_line_id:
+            params['st_line_id'] = st_line_id
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'om_bank_reconciliation',
+            'name': _('Bank Reconciliation'),
+            'params': params,
+        }
+
+    # -------------------------------------------------------------------------
+    # Dashboard
+    # -------------------------------------------------------------------------
+
+    def om_action_open_to_review(self):
+        return self.om_action_open_bank_reconciliation(state='to_review')
+
+    def om_action_new_transaction(self):
+        """ A transaction typed in, e.g. the cash spent during the day or a bank fee seen on the online banking. """
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('New Transaction'),
+            'res_model': 'account.bank.statement.line',
+            'views': [(self.env.ref('om_account_reconcile.view_bank_statement_line_form').id, 'form')],
+            'target': 'new',
+            'context': {'default_journal_id': self.id, 'default_date': fields.Date.context_today(self)},
+        }
+
+    def om_action_new_statement(self):
+        """ A statement of the cash counted at the end of the day, with the transactions of the day. """
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('New Statement'),
+            'res_model': 'account.bank.statement',
+            'views': [(self.env.ref('om_account_reconcile.view_bank_statement_form').id, 'form')],
+            'context': {'default_journal_id': self.id, 'default_date': fields.Date.context_today(self)},
+        }
+
+    def om_action_open_last_statement(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': self.last_statement_id.display_name,
+            'res_model': 'account.bank.statement',
+            'views': [(self.env.ref('om_account_reconcile.view_bank_statement_form').id, 'form')],
+            'res_id': self.last_statement_id.id,
+        }

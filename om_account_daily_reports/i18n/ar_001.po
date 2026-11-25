@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2022-04-15 18:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: ar_001\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -102,7 +103,7 @@ msgstr "الرصيد"
 #: model:ir.model,name:om_account_daily_reports.model_report_om_account_daily_reports_report_bankbook
 #: model:ir.ui.menu,name:om_account_daily_reports.menu_bankbook
 msgid "Bank Book"
-msgstr "كتاب البنك"
+msgstr "دفتر البنك"
 
 #. module: om_account_daily_reports
 #: model:ir.model,name:om_account_daily_reports.model_account_bankbook_report
@@ -177,12 +178,12 @@ msgstr "التاريخ"
 #: model:ir.model,name:om_account_daily_reports.model_report_om_account_daily_reports_report_daybook
 #: model:ir.ui.menu,name:om_account_daily_reports.menu_daybook
 msgid "Day Book"
-msgstr "كتاب اليوم"
+msgstr "دفتر اليومية"
 
 #. module: om_account_daily_reports
 #: model:ir.model,name:om_account_daily_reports.model_account_daybook_report
 msgid "Day Book Report"
-msgstr "تقرير كتاب اليوم"
+msgstr "تقرير دفتر اليومية"
 
 #. module: om_account_daily_reports
 #: model_terms:ir.ui.view,arch_db:om_account_daily_reports.report_bankbook
@@ -219,10 +220,9 @@ msgstr "تاريخ الانتهاء"
 #: model_terms:ir.ui.view,arch_db:om_account_daily_reports.report_cashbook
 #: model_terms:ir.ui.view,arch_db:om_account_daily_reports.report_daybook
 msgid "Entry Label"
-msgstr "بطاقة الدخول"
+msgstr "وصف القيد"
 
 #. module: om_account_daily_reports
-#. odoo-python
 #: code:addons/om_account_daily_reports/report/report_bankbook.py:0
 #: code:addons/om_account_daily_reports/report/report_cashbook.py:0
 #: code:addons/om_account_daily_reports/report/report_daybook.py:0
@@ -240,12 +240,8 @@ msgstr ""
 #. module: om_account_daily_reports
 #: model:ir.model.fields,help:om_account_daily_reports.field_account_bankbook_report__initial_balance
 #: model:ir.model.fields,help:om_account_daily_reports.field_account_cashbook_report__initial_balance
-msgid ""
-"If you selected date, this field allow you to add a row to display the "
-"amount of debit/credit/balance that precedes the filter you've set."
-msgstr ""
-"إذا حددت التاريخ ، فسيتيح لك هذا الحقل إضافة صف لعرض مبلغ الخصم / الائتمان /"
-" الرصيد الذي يسبق عامل التصفية الذي قمت بتعيينه."
+msgid "If you selected date, this field allow you to add a row to display the amount of debit/credit/balance that precedes the filter you've set."
+msgstr "إذا حددت التاريخ ، فسيتيح لك هذا الحقل إضافة صف لعرض مبلغ الخصم / الائتمان / الرصيد الذي يسبق عامل التصفية الذي قمت بتعيينه."
 
 #. module: om_account_daily_reports
 #: model:ir.model.fields,field_description:om_account_daily_reports.field_account_bankbook_report__initial_balance
