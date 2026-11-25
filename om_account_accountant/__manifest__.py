@@ -1,6 +1,6 @@
 {
     'name': 'Odoo 19 Accounting Community',
-    'version': '1.4.2',
+    'version': '1.4.3',
     'category': 'Accounting',
     'summary': 'Annual Report, Bank Reconciliation Statement, Accounting Reports, '
                'Asset Management and Budget, Recurring Payments, '
@@ -37,6 +37,9 @@
         'om_spreadsheet_account_asset',
         'om_spreadsheet_account_budget',
         'om_spreadsheet_account_followup',
+        'om_whatsapp_base',
+        'om_whatsapp',
+        'om_whatsapp_web',
     ],
     'data': [
         'security/group.xml',
