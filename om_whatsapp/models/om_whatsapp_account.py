@@ -37,6 +37,24 @@ def media_kind(attachment):
 # what the webhook of the app brings
 WEBHOOK_FIELDS = ['messages', 'message_template_status_update', 'phone_number_quality_update', 'account_update']
 WEBHOOK_PATH = '/om_whatsapp/webhook'
+MANAGED_LOCKED_FIELDS = frozenset({
+    'provider',
+    'active',
+    'meta_managed',
+    'meta_app_id',
+    'meta_app_secret',
+    'meta_access_token',
+    'meta_waba_id',
+    'meta_waba_name',
+    'meta_phone_number_id',
+    'meta_webhook_secret',
+    'meta_webhook_secret_previous',
+    'meta_webhook_secret_previous_until',
+    'meta_router_url',
+    'meta_verify_token',
+    'meta_pin',
+})
+PROVISION_REQUIRED_FIELDS = ('phone_number_id', 'waba_id', 'app_id', 'access_token', 'webhook_secret')
 
 
 class OmWhatsappAccount(models.Model):
@@ -46,12 +64,19 @@ class OmWhatsappAccount(models.Model):
     _inherit = 'om.whatsapp.account'
 
     provider = fields.Selection(selection_add=[('meta', 'Meta (Cloud API)')], ondelete={'meta': 'set default'})
+    meta_managed = fields.Boolean('Managed by Alshamel', readonly=True, copy=False, default=False)
     meta_app_id = fields.Char('App ID', groups='om_whatsapp_base.group_om_whatsapp_manager', copy=False)
     meta_app_secret = fields.Char('App Secret', groups='om_whatsapp_base.group_om_whatsapp_manager', copy=False)
     meta_access_token = fields.Char('Access Token', groups='om_whatsapp_base.group_om_whatsapp_manager', copy=False)
     meta_waba_id = fields.Char('WhatsApp Business Account ID', readonly=True, copy=False)
     meta_waba_name = fields.Char('Business Account', readonly=True, copy=False)
     meta_phone_number_id = fields.Char('Phone Number ID', readonly=True, copy=False, index='btree_not_null')
+    meta_webhook_secret = fields.Char(
+        'Webhook Signing Secret', groups='om_whatsapp_base.group_om_whatsapp_manager', copy=False)
+    meta_webhook_secret_previous = fields.Char(
+        'Previous Webhook Signing Secret', groups='om_whatsapp_base.group_om_whatsapp_manager', copy=False)
+    meta_webhook_secret_previous_until = fields.Datetime('Previous Secret Valid Until', readonly=True, copy=False)
+    meta_router_url = fields.Char('Managed Webhook Router URL', readonly=True, copy=False)
     meta_verified_name = fields.Char('WhatsApp Name', readonly=True, copy=False,
                                      help="The name of the business shown in WhatsApp, approved by Meta.")
     meta_quality_rating = fields.Char('Quality Rating', readonly=True, copy=False)
@@ -113,6 +138,199 @@ class OmWhatsappAccount(models.Model):
                        app_secret=account.meta_app_secret)
 
     # ------------------------------------------------------------
+    # MANAGED ACCOUNT GUARDRAILS
+    # ------------------------------------------------------------
+
+    def _meta_managed_bypass(self):
+        return self.env.su or (self.env.is_system() and self.env.context.get('shamel_whatsapp_provision'))
+
+    def _meta_ensure_not_managed(self):
+        if self.filtered('meta_managed'):
+            raise UserError(_(
+                "This WhatsApp account is managed by Alshamel. Connection settings cannot be changed here; "
+                "contact Alshamel support for assistance."
+            ))
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        if not self.env.is_system() and any(vals.get('meta_managed') for vals in vals_list):
+            raise AccessError(_("Only system administrators can mark a WhatsApp account as managed by Alshamel."))
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if vals.get('meta_managed') and not self.env.is_system():
+            raise AccessError(_("Only system administrators can mark a WhatsApp account as managed by Alshamel."))
+        if (MANAGED_LOCKED_FIELDS & set(vals)) and not self._meta_managed_bypass() and self.filtered('meta_managed'):
+            raise AccessError(_(
+                "This WhatsApp account is managed by Alshamel. Connection settings cannot be changed here; "
+                "contact Alshamel support for assistance."
+            ))
+        return super().write(vals)
+
+    def unlink(self):
+        if not self._meta_managed_bypass() and self.filtered('meta_managed'):
+            raise AccessError(_(
+                "This WhatsApp account is managed by Alshamel and cannot be deleted. "
+                "Contact Alshamel support to disconnect it."
+            ))
+        return super().unlink()
+
+    # ------------------------------------------------------------
+    # SHAMEL MANAGED ROUTER PROVISIONING
+    # ------------------------------------------------------------
+
+    def _check_shamel_provisioning_access(self):
+        if not (self.env.is_system() or self.env.user.has_group('base.group_erp_manager')):
+            raise AccessError(_("Only system administrators can provision managed WhatsApp accounts."))
+
+    def _shamel_provision_env(self):
+        return self.sudo().with_context(shamel_whatsapp_provision=True, active_test=False)
+
+    def _shamel_default_manager_ids(self):
+        group = self.env.ref('om_whatsapp_base.group_om_whatsapp_manager', raise_if_not_found=False)
+        managers = group.sudo().user_ids.filtered('active') if group else self.env['res.users']
+        return managers.ids or ([self.env.user.id] if not self.env.su else [])
+
+    def _parse_shamel_provision_vals(self, vals):
+        if not isinstance(vals, dict):
+            raise UserError(_("Provisioning parameters must be a dictionary."))
+        cleaned = {key: str(vals.get(key) or '').strip() for key in PROVISION_REQUIRED_FIELDS}
+        missing = [key for key, value in cleaned.items() if not value]
+        if missing:
+            raise UserError(_("Missing required provisioning parameter(s): %(fields)s.", fields=', '.join(missing)))
+        for key in ('waba_name', 'router_url', 'name'):
+            cleaned[key] = str(vals.get(key) or '').strip()
+        return cleaned
+
+    def _shamel_find_managed(self, phone_number_id):
+        cleaned = str(phone_number_id or '').strip()
+        if not cleaned:
+            raise UserError(_("Phone number ID is required."))
+        return self._shamel_provision_env().search([
+            ('meta_phone_number_id', '=', cleaned),
+            ('meta_managed', '=', True),
+        ], limit=1)
+
+    def _shamel_provision_summary(self, templates_synced):
+        self.ensure_one()
+        return {
+            'account_id': self.id,
+            'name': self.name or '',
+            'meta_state': self.meta_state or '',
+            'phone': self.phone or '',
+            'verified_name': self.meta_verified_name or '',
+            'templates_synced': templates_synced,
+        }
+
+    def _shamel_provision_refresh(self, *, created, explicit_name, sync_templates, skip_meta_check):
+        self.ensure_one()
+        if skip_meta_check:
+            return 0
+        try:
+            number = self._meta_api().get_phone_number(self.meta_phone_number_id)
+        except MetaApiError as error:
+            raise UserError(_("Meta says: %(error)s", error=error)) from error
+        self._meta_write_number(number)
+        updates = {'meta_checked_on': fields.Datetime.now()}
+        if created and not explicit_name and number.get('verified_name'):
+            updates['name'] = number['verified_name']
+        self.write(updates)
+        return self._meta_sync_templates_quietly() if sync_templates else 0
+
+    @api.model
+    def action_shamel_provision_managed(self, vals):
+        """ Provision or idempotently update an Alshamel-managed Meta WhatsApp account. """
+        self._check_shamel_provisioning_access()
+        data = self._parse_shamel_provision_vals(vals)
+        Account = self._shamel_provision_env()
+        account = Account.search([('meta_phone_number_id', '=', data['phone_number_id'])], limit=1)
+        account_vals = {
+            'active': True,
+            'provider': 'meta',
+            'meta_managed': True,
+            'meta_app_id': data['app_id'],
+            'meta_app_secret': False,
+            'meta_waba_id': data['waba_id'],
+            'meta_waba_name': data['waba_name'] or False,
+            'meta_phone_number_id': data['phone_number_id'],
+            'meta_access_token': data['access_token'],
+            'meta_webhook_secret': data['webhook_secret'],
+            'meta_webhook_secret_previous': False,
+            'meta_webhook_secret_previous_until': False,
+            'meta_router_url': data['router_url'] or False,
+            'meta_token_expires': False,
+            'meta_state': 'connected',
+            'meta_status_message': False,
+        }
+        created = not account
+        if created:
+            account_vals['name'] = data['name'] or 'WhatsApp'
+            if manager_ids := self._shamel_default_manager_ids():
+                account_vals['user_ids'] = [fields.Command.set(manager_ids)]
+            account = Account.create(account_vals)
+        else:
+            if data['name']:
+                account_vals['name'] = data['name']
+            account.write(account_vals)
+        templates_synced = account._shamel_provision_refresh(
+            created=created,
+            explicit_name=bool(data['name']),
+            sync_templates=bool(vals.get('sync_templates', True)),
+            skip_meta_check=bool(vals.get('skip_meta_check', False)),
+        )
+        return account._shamel_provision_summary(templates_synced)
+
+    @api.model
+    def action_shamel_rotate_managed_secret(self, phone_number_id, new_secret, grace_seconds=900):
+        """ Rotate the per-route webhook signing secret with a zero-downtime grace window. """
+        self._check_shamel_provisioning_access()
+        new_secret = str(new_secret or '').strip()
+        grace_seconds = int(grace_seconds)
+        if not new_secret:
+            raise UserError(_("New signing secret is required."))
+        if grace_seconds < 0:
+            raise UserError(_("Grace period cannot be negative."))
+        account = self._shamel_find_managed(phone_number_id)
+        if not account:
+            raise UserError(_("No managed WhatsApp account found for phone number ID %(phone_id)s.",
+                              phone_id=phone_number_id))
+        grace_until = fields.Datetime.now() + timedelta(seconds=grace_seconds)
+        prev_secret, prev_until = (
+            (account.meta_webhook_secret, grace_until)
+            if account.meta_webhook_secret and grace_seconds > 0
+            else (False, False)
+        )
+        account.write({
+            'meta_webhook_secret_previous': prev_secret,
+            'meta_webhook_secret_previous_until': prev_until,
+            'meta_webhook_secret': new_secret,
+        })
+        return {
+            'account_id': account.id,
+            'rotated': True,
+            'grace_until': grace_until.strftime('%Y-%m-%dT%H:%M:%SZ'),
+        }
+
+    @api.model
+    def action_shamel_unprovision_managed(self, phone_number_id):
+        """ Clear credentials and archive a managed account while preserving Discuss history. """
+        self._check_shamel_provisioning_access()
+        account = self._shamel_find_managed(phone_number_id)
+        if not account:
+            return {'account_id': 0, 'unprovisioned': False}
+        account.write({
+            'meta_access_token': False,
+            'meta_webhook_secret': False,
+            'meta_webhook_secret_previous': False,
+            'meta_webhook_secret_previous_until': False,
+            'meta_phone_number_id': False,
+            'meta_state': 'draft',
+            'meta_status_message': False,
+            'active': False,
+        })
+        return {'account_id': account.id, 'unprovisioned': True}
+
+    # ------------------------------------------------------------
     # ACTIONS
     # ------------------------------------------------------------
 
@@ -125,6 +343,7 @@ class OmWhatsappAccount(models.Model):
 
     def action_meta_setup(self):
         self.ensure_one()
+        self._meta_ensure_not_managed()
         return {
             'type': 'ir.actions.act_window',
             'name': _("Connect to Meta"),
@@ -138,6 +357,7 @@ class OmWhatsappAccount(models.Model):
         """ The assistant for the token of a system user, which never
         expires. """
         self.ensure_one()
+        self._meta_ensure_not_managed()
         return {
             'type': 'ir.actions.act_window',
             'name': _("Make the Connection Permanent"),
@@ -152,6 +372,7 @@ class OmWhatsappAccount(models.Model):
         Connect to Meta. """
         self.ensure_one()
         self._meta_check_manager()
+        self._meta_ensure_not_managed()
         self.sudo().write({
             'meta_phone_number_id': False,
             'meta_state': 'draft',
@@ -181,6 +402,35 @@ class OmWhatsappAccount(models.Model):
         """ Refresh what Meta says of the number; the problems found. """
         self.ensure_one()
         account = self.sudo()
+        problems = self._meta_check_managed(account) if account.meta_managed else self._meta_check_standalone(account)
+        account.write({
+            'meta_state': 'error' if problems else 'connected',
+            'meta_status_message': '\n'.join(problems) or False,
+            'meta_checked_on': fields.Datetime.now(),
+        })
+        return problems
+
+    def _meta_check_managed(self, account):
+        problems = []
+        if not account.meta_phone_number_id:
+            problems.append(_("No phone number is configured on this managed account: contact Alshamel support."))
+        if not account.meta_webhook_secret:
+            problems.append(_("Webhook signing secret is missing on this managed account: contact Alshamel support."))
+        if not account.meta_access_token:
+            problems.append(_("Access token is missing on this managed account: contact Alshamel support."))
+        elif account.meta_phone_number_id:
+            try:
+                account._meta_write_number(self._meta_api().get_phone_number(account.meta_phone_number_id))
+            except MetaApiError as error:
+                problems.append(
+                    _("The WhatsApp access token is no longer valid: contact Alshamel support to refresh it.")
+                    if error.code == 190 else _("Meta says: %(error)s", error=error)
+                )
+        if not self._meta_database_reachable():
+            problems.append(self._meta_database_message())
+        return problems
+
+    def _meta_check_standalone(self, account):
         problems = []
         api = self._meta_api()
         try:
@@ -191,27 +441,24 @@ class OmWhatsappAccount(models.Model):
                 problems.append(_("The access token is not valid any more: click Make it Permanent, or connect again "
                                   "with a new temporary token."))
             if account.meta_phone_number_id:
-                number = api.get_phone_number(account.meta_phone_number_id)
-                account._meta_write_number(number)
+                account._meta_write_number(api.get_phone_number(account.meta_phone_number_id))
             else:
                 problems.append(_("No number is chosen: connect again."))
-            if self._meta_webhook_reachable() and not self._meta_database_reachable():
-                problems.append(self._meta_database_message())
-            elif self._meta_webhook_reachable():
-                subscriptions = api.get_webhook()
-                webhook = next((s for s in subscriptions if s.get('object') == 'whatsapp_business_account'), {})
-                if webhook.get('callback_url') != self.meta_webhook_url:
-                    problems.append(_("The webhook of the app is not this Odoo: connect again."))
-            else:
-                problems.append(self._meta_unreachable_message())
+            problems.extend(self._meta_check_standalone_webhook(api))
         except MetaApiError as error:
             problems.append(_("Meta says: %(error)s", error=error))
-        account.write({
-            'meta_state': 'error' if problems else 'connected',
-            'meta_status_message': '\n'.join(problems) or False,
-            'meta_checked_on': fields.Datetime.now(),
-        })
         return problems
+
+    def _meta_check_standalone_webhook(self, api):
+        if not self._meta_webhook_reachable():
+            return [self._meta_unreachable_message()]
+        if not self._meta_database_reachable():
+            return [self._meta_database_message()]
+        subscriptions = api.get_webhook()
+        webhook = next((s for s in subscriptions if s.get('object') == 'whatsapp_business_account'), {})
+        if webhook.get('callback_url') != self.meta_webhook_url:
+            return [_("The webhook of the app is not this Odoo: connect again.")]
+        return []
 
     def _meta_database_reachable(self):
         """ Meta calls without a session: Odoo finds the database alone, the
@@ -220,6 +467,10 @@ class OmWhatsappAccount(models.Model):
         return db_list(force=True, host=urlparse(self.meta_webhook_url).hostname) == [self.env.cr.dbname]
 
     def _meta_database_message(self):
+        if self.meta_managed:
+            return _("The managed webhook router calls %(url)s without specifying a database, and this Odoo server "
+                     "has several databases configured for that host. Contact Alshamel support.",
+                     url=self.meta_webhook_url)
         return _("Meta calls %(url)s without saying which database: this Odoo server has several, and Meta gets a 404. "
                  "Keep this one for its address: in the configuration of Odoo, set dbfilter = ^%(db)s$ (or start it with "
                  "--db-filter=^%(db)s$), restart Odoo, then click Set Webhook.",
@@ -236,6 +487,7 @@ class OmWhatsappAccount(models.Model):
         it is on a public address. """
         self.ensure_one()
         self._meta_check_manager()
+        self._meta_ensure_not_managed()
         account = self.sudo()
         try:
             if not self._meta_webhook_reachable():
@@ -271,13 +523,18 @@ class OmWhatsappAccount(models.Model):
 
     def _meta_explain(self, error):
         """ The words of Meta, with what to do for the errors met while trying. """
+        token_hint = (
+            _("The access token expired or was revoked: contact Alshamel support to refresh it.")
+            if self.meta_managed
+            else _("The token expired: click Make it Permanent, or connect again with a new token.")
+        )
         hints = {
             131030: _("While you use the test number of Meta, it sends only to the numbers of its list. In your app: "
                       "WhatsApp › API Setup, open the To list, Manage phone number list, Add phone number; Meta sends a "
                       "code to that number on WhatsApp: enter it and Verify. Then send again, to exactly that number. The "
                       "Send Test Message button of the account shows these steps."),
             131047: _("The contact has not written in the last 24 hours: send an approved template."),
-            190: _("The token expired: click Make it Permanent, or connect again with a new token."),
+            190: token_hint,
         }
         hint = hints.get(error.code)
         return f"{error} {hint}" if hint else str(error)

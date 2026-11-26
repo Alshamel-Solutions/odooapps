@@ -229,6 +229,7 @@ class OmWhatsappMetaSetup(models.TransientModel):
         assistant starts again from them. A connected account keeps its app
         until Connect: its webhook is signed with its App Secret. """
         self._check_account(self.account_id)
+        self.account_id._meta_ensure_not_managed()
         account = self.account_id.sudo()
         if account.meta_state != 'connected':
             account.write(values)
@@ -352,6 +353,7 @@ class OmWhatsappMetaSetup(models.TransientModel):
         set the webhook, send a test message: each step is told, done or what
         is missing. """
         self.ensure_one()
+        self.account_id._meta_ensure_not_managed()
         if not self.number_id:
             raise UserError(_("Choose the number to send from."))
         token = self._check_token()
@@ -477,6 +479,7 @@ class OmWhatsappMetaSetup(models.TransientModel):
         """ The token of a system user, which never expires, for the same
         WhatsApp account. """
         self.ensure_one()
+        self.account_id._meta_ensure_not_managed()
         self.access_token = (self.access_token or '').strip()
         token = self._check_token()
         self._check_account(self.account_id)
