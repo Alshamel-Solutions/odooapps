@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* om_whatsapp
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-26 00:00+0000\n"
+"PO-Revision-Date: 2026-11-26 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+#. module: om_whatsapp
+#: model:ir.model.fields,field_description:om_whatsapp.field_om_whatsapp_account__meta_managed
+msgid "Managed by Alshamel"
+msgstr "مُدار بواسطة الشامل"
+
+#. module: om_whatsapp
+#: model:ir.model.fields,field_description:om_whatsapp.field_om_whatsapp_account__meta_webhook_secret
+msgid "Webhook Signing Secret"
+msgstr "سر توقيع الويب هوك"
+
+#. module: om_whatsapp
+#: model:ir.model.fields,field_description:om_whatsapp.field_om_whatsapp_account__meta_webhook_secret_previous
+msgid "Previous Webhook Signing Secret"
+msgstr "سر توقيع الويب هوك السابق"
+
+#. module: om_whatsapp
+#: model:ir.model.fields,field_description:om_whatsapp.field_om_whatsapp_account__meta_webhook_secret_previous_until
+msgid "Previous Secret Valid Until"
+msgstr "صلاحية السر السابق حتى"
+
+#. module: om_whatsapp
+#: model:ir.model.fields,field_description:om_whatsapp.field_om_whatsapp_account__meta_router_url
+msgid "Managed Webhook Router URL"
+msgstr "رابط موجه الويب هوك المُدار"
+
+#. module: om_whatsapp
+#: model_terms:ir.ui.view,arch_db:om_whatsapp.om_whatsapp_account_view_form_inherit_meta
+msgid ""
+"This WhatsApp connection is managed by Alshamel. You can check the "
+"connection, send test messages, sync templates, and manage allowed users "
+"here; contact Alshamel support for connection changes."
+msgstr ""
+"اتصال واتساب هذا مُدار بواسطة الشامل. يمكنك فحص الاتصال وإرسال رسائل تجريبية ومزامنة القوالب "
+"وإدارة المستخدمين المصرح لهم من هنا؛ تواصل مع دعم الشامل لإجراء أي تغييرات على الاتصال."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"This WhatsApp account is managed by Alshamel. Connection settings cannot be "
+"changed here; contact Alshamel support for assistance."
+msgstr ""
+"حساب واتساب هذا مُدار بواسطة الشامل. لا يمكن تغيير إعدادات الاتصال من هنا؛ "
+"يرجى التواصل مع دعم الشامل للمساعدة."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"This WhatsApp account is managed by Alshamel and cannot be deleted. Contact "
+"Alshamel support to disconnect it."
+msgstr ""
+"حساب واتساب هذا مُدار بواسطة الشامل ولا يمكن حذفه. يرجى التواصل مع دعم الشامل "
+"لفصل الاتصال."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"Only system administrators can mark a WhatsApp account as managed by "
+"Alshamel."
+msgstr "يمكن لمسؤولي النظام فقط تعيين حساب واتساب كمُدار بواسطة الشامل."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid "Only system administrators can provision managed WhatsApp accounts."
+msgstr "يمكن لمسؤولي النظام فقط تهيئة حسابات واتساب المُدارة."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid "Provisioning parameters must be a dictionary."
+msgstr "يجب أن تكون معاملات التهيئة على شكل قاموس بيانات."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid "Missing required provisioning parameter(s): %(fields)s."
+msgstr "معاملات التهيئة المطلوبة ناقصة: %(fields)s."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid "Phone number ID is required."
+msgstr "معرّف رقم الهاتف مطلوب."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid "New signing secret is required."
+msgstr "سر التوقيع الجديد مطلوب."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid "Grace period cannot be negative."
+msgstr "لا يمكن أن تكون فترة السماح قيمة سالبة."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid "No managed WhatsApp account found for phone number ID %(phone_id)s."
+msgstr "لم يتم العثور على حساب واتساب مُدار لمعرّف رقم الهاتف %(phone_id)s."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"No phone number is configured on this managed account: contact Alshamel "
+"support."
+msgstr "لا يوجد رقم هاتف مُعدّ في هذا الحساب المُدار: يرجى التواصل مع دعم الشامل."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"Webhook signing secret is missing on this managed account: contact Alshamel "
+"support."
+msgstr "سر توقيع الويب هوك مفقود في هذا الحساب المُدار: يرجى التواصل مع دعم الشامل."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"Access token is missing on this managed account: contact Alshamel support."
+msgstr "رمز الوصول مفقود في هذا الحساب المُدار: يرجى التواصل مع دعم الشامل."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"The WhatsApp access token is no longer valid: contact Alshamel support to "
+"refresh it."
+msgstr "لم يعد رمز وصول واتساب صالحاً: يرجى التواصل مع دعم الشامل لتحديثه."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"The managed webhook router calls %(url)s without specifying a database, and "
+"this Odoo server has several databases configured for that host. Contact "
+"Alshamel support."
+msgstr ""
+"يتصل موجه الويب هوك المُدار بالعنوان %(url)s دون تحديد قاعدة بيانات، بينما "
+"يحتوي خادم أودو هذا على عدة قواعد بيانات لهذا النطاق. يرجى التواصل مع دعم "
+"الشامل."
+
+#. module: om_whatsapp
+#. odoo-python
+#: code:addons/om_whatsapp/models/om_whatsapp_account.py:0
+msgid ""
+"The access token expired or was revoked: contact Alshamel support to refresh"
+" it."
+msgstr ""
+"انتهت صلاحية رمز الوصول أو تم إلغاؤه: يرجى التواصل مع دعم الشامل لتحديثه."
